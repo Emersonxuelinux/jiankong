@@ -1,3 +1,4 @@
+
 # coding:utf-8
 import pymysql.cursors
 
@@ -154,7 +155,7 @@ def loudonghezi_insert(name, link, time):
     return id
 
 
-# wooyun关键字插入到wooyun_keyword
+# wooyun插入数据到wooyun_keyword
 def wooyun_keyword_insert(wooyun_id, keyword_id, keyword_name):
     connection = connect()
     try:
@@ -166,8 +167,9 @@ def wooyun_keyword_insert(wooyun_id, keyword_id, keyword_name):
     finally:
         connection.close()
 
+# 补天插入数据到wooyun_keyword
 
-# 补天关键字插入wooyun_keyword
+
 def butian_keyword_insert(butian_id, keyword_id, keyword_name):
     connection = connect()
     try:
@@ -179,8 +181,9 @@ def butian_keyword_insert(butian_id, keyword_id, keyword_name):
     finally:
         connection.close()
 
+# 漏洞盒子插入数据到wooyun_keyword
 
-# 漏洞盒子关键字插入到wooyun_keyword
+
 def loudonghezi_keyword_insert(loudonghezi_id, keyword_id, keyword_name):
     connection = connect()
     try:
@@ -192,13 +195,62 @@ def loudonghezi_keyword_insert(loudonghezi_id, keyword_id, keyword_name):
     finally:
         connection.close()
 
+# 获取发件人邮箱,返回['smtp服务器','smtp端口','邮箱账户','邮箱密码']
+
+
+def getMailSet():
+    connection = connect()
+    try:
+        cursor = connection.cursor()
+        sql = "select * from mail where id = 1"
+        cursor.execute(sql)
+        data = cursor.fetchall()
+        mailset = []
+        mailset.append(data[0]['smtpserver'])
+        mailset.append(data[0]['smtpport'])
+        mailset.append(data[0]['usermail'])
+        mailset.append(data[0]['userpass'])
+        return mailset
+    finally:
+        connection.close()
+
+# 获取关注某个关键字的用户的邮箱,传入关键字id
+
+
+def getFollowMail(keyword_id):
+    connection = connect()
+    try:
+        cursor = connection.cursor()
+        sql = "select * from keyword_follow where keyword_id = " + \
+            str(keyword_id)
+        cursor.execute(sql)
+        data = cursor.fetchall()
+        useMail = []
+        for i in data:
+            if int(i['mail_send']) == 1:
+                useMail.append(getUserMail(i['uid']))
+        return useMail
+    finally:
+        connection.close()
+
+
+def getUserMail(uid):
+    connection = connect()
+    try:
+        cursor = connection.cursor()
+        sql = "select * from user where id = " + str(uid)
+        cursor.execute(sql)
+        data = cursor.fetchall()
+        return data[0]['email']
+    finally:
+        connection.close()
 
 # wooyun_last_update("wooyun-2016-0217469")
 # butian_last_update("QTVA-2016-443103")
 # loudonghezi_last_update("vulbox-2016-022093")
 # wooyun_insert("xx漏洞","wooyun-2016-0217469","2016:1:1")
 # butian_insert("xx漏洞fs分多少","QTVA-2016-443103","2016:1:1")
-# loudonghezi_insert("xx漏洞发送到","vulbox-2016-022093","2016:1:1")
+# print(loudonghezi_insert("xx漏洞发送到","vulbox-2016-022093","2016:1:1"))
 # data1 = wooyun_last()
 # print(data1)
 # data2 = butian_last()
@@ -207,3 +259,5 @@ def loudonghezi_keyword_insert(loudonghezi_id, keyword_id, keyword_name):
 # print(data3)
 # print(getkeyWord())
 # loudonghezi_keyword_insert("2","67","合肥")
+# print(getMailSet())
+# print(getFollowMail(99))
