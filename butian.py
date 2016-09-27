@@ -7,7 +7,7 @@ from handle import https_get as get
 import re
 
 
-last_data = QTVA-2016-474677
+last_data = "QTVA-2016-474677"
 
 url = 'https://butian.360.cn/vul/list/page/%d' % n
 n_page = get(url)
