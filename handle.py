@@ -32,13 +32,11 @@ def post(url):  # 发送post请求，返回网页内容
         print(e)
 
 
-def matching_keywords(keywords=getkeyWord()):  # 处理关键字
+def matching_keywords(keyword=getkeyWord()):  # 处理关键字，用来快速匹配
     key_str = ''
-    for key in keywords:
-        if keywords[len(keywords) - 1] != key:
-            key_str += key + '|'
-        else:
-            key_str += key
+    for key in keyword.values():
+        key_str += key + "|"
+    key_str = key_str[0:-1]
     return key_str
 
 
@@ -47,6 +45,7 @@ def https_get(url):  # 访问https
     headers = {"User-Agent": user_agent}
     try:
         f = requests.get(url, params=headers)
+        f.encoding = 'utf-8'
         page = f.text
         return page
     except Exception as e:
