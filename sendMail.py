@@ -25,7 +25,8 @@ def mailSet(server, port, from_mail_addr, passwd, to_mail_addr, subject, VulKeyw
     msg['from'] = from_mail_addr
     msg['to'] = to_mail_addr
     msg['subject'] = subject
-    content = '''你好，\n\t你关注的关键字发现了新的漏洞，关键字内容为%s。\n\t漏洞链接为%s'''%(VulKeyword, VulUrl)
+    content = '''你好，\n\t你关注的关键字发现了新的漏洞，关键字内容为%s。\n\t漏洞链接为%s''' % (
+        VulKeyword, VulUrl)
     txt = email.mime.text.MIMEText(content)
     msg.attach(txt)
     try:

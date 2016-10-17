@@ -21,7 +21,7 @@ def get(url):  # 发送get请求，返回网页内容
 
 
 def post(url):  # 发送post请求，返回网页内容
-    user_agent = "Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko"
+    user_agent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.101 Safari/537.36"
     try:
         req = urllib.request.Request(url)
         req.add_header("User-Agent", user_agent)
@@ -41,10 +41,11 @@ def matching_keywords(keyword=getkeyWord()):  # 处理关键字，用来快速�
 
 
 def https_get(url):  # 访问https
-    user_agent = 'Mozilla/5.0 (Windows NT 6.1; Trident/7.0; rv:11.0) like Gecko'
-    headers = {"User-Agent": user_agent}
+    user_agent = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.101 Safari/537.36'
+    headers = {"User-Agent": user_agent,}
+                
     try:
-        f = requests.get(url, params=headers)
+        f = requests.get(url, headers=headers)
         f.encoding = 'utf-8'
         page = f.text
         return page

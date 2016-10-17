@@ -32,14 +32,14 @@ def getkeyWord():
 
 # print(getkeyWord())
 
-# wooyun最后一条漏洞链接
+# cnvd最后一条漏洞链接
 
 
-def wooyun_last():
+def cnvd_last():
     connection = connect()
     try:
         cursor = connection.cursor()
-        sql = "select link from wooyun_last where id = 0"
+        sql = "select link from cnvd_last where id = 0"
         cursor.execute(sql)
         data = cursor.fetchall()
     finally:
@@ -74,12 +74,12 @@ def loudonghezi_last():
     return data[0]['link']
 
 
-# wooyun更新最后一条漏洞链接
-def wooyun_last_update(id):
+# cnvd更新最后一条漏洞链接
+def cnvd_last_update(id):
     connection = connect()
     try:
         cursor = connection.cursor()
-        sql = "update wooyun_last set link = '%s' where id = 0" % id
+        sql = "update cnvd_last set link = '%s' where id = 0" % id
         cursor.execute(sql)
         connection.commit()
     finally:
@@ -110,12 +110,12 @@ def loudonghezi_last_update(id):
         connection.close()
 
 
-# wooyun插入漏洞
-def wooyun_insert(name, link, time):
+# cnvd插入漏洞
+def cnvd_insert(name, link, time):
     connection = connect()
     try:
         cursor = connection.cursor()
-        sql = "insert into `wooyun`(`name`,`link`,`time`) VALUES ('%s','%s','%s')" % (
+        sql = "insert into `cnvd`(`name`,`link`,`time`) VALUES ('%s','%s','%s')" % (
             name, link, time)
         cursor.execute(sql)
         id = cursor.lastrowid
@@ -155,19 +155,19 @@ def loudonghezi_insert(name, link, time):
     return id
 
 
-# wooyun插入数据到wooyun_keyword
-def wooyun_keyword_insert(wooyun_id, keyword_id, keyword_name):
+# cnvd插入数据到cnvd_keyword
+def cnvd_keyword_insert(cnvd_id, keyword_id, keyword_name):
     connection = connect()
     try:
         cursor = connection.cursor()
-        sql = "insert into `wooyun_keyword`(`wooyun_id`,`keyword_id`,`keyword`) VALUES ('%s','%s','%s')" % (
-            wooyun_id, keyword_id, keyword_name)
+        sql = "insert into `cnvd_keyword`(`cnvd_id`,`keyword_id`,`keyword`) VALUES ('%s','%s','%s')" % (
+            cnvd_id, keyword_id, keyword_name)
         cursor.execute(sql)
         connection.commit()
     finally:
         connection.close()
 
-# 补天插入数据到wooyun_keyword
+# 补天插入数据到cnvd_keyword
 
 
 def butian_keyword_insert(butian_id, keyword_id, keyword_name):
@@ -181,7 +181,7 @@ def butian_keyword_insert(butian_id, keyword_id, keyword_name):
     finally:
         connection.close()
 
-# 漏洞盒子插入数据到wooyun_keyword
+# 漏洞盒子插入数据到cnvd_keyword
 
 
 def loudonghezi_keyword_insert(loudonghezi_id, keyword_id, keyword_name):
@@ -245,13 +245,13 @@ def getUserMail(uid):
     finally:
         connection.close()
 
-# wooyun_last_update("wooyun-2016-0217469")
+# cnvd_last_update("cnvd-2016-0217469")
 # butian_last_update("QTVA-2016-443103")
 # loudonghezi_last_update("vulbox-2016-022093")
-# wooyun_insert("xx漏洞","wooyun-2016-0217469","2016:1:1")
+# cnvd_insert("xx漏洞","cnvd-2016-0217469","2016:1:1")
 # butian_insert("xx漏洞fs分多少","QTVA-2016-443103","2016:1:1")
 # print(loudonghezi_insert("xx漏洞发送到","vulbox-2016-022093","2016:1:1"))
-# data1 = wooyun_last()
+# data1 = cnvd_last()
 # print(data1)
 # data2 = butian_last()
 # print(data2)
